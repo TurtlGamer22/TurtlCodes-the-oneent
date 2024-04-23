@@ -1,0 +1,50 @@
+import random
+import time
+
+# Function to generate a random platform
+def generate_platform(width):
+    platform = []
+    hole_position = random.randint(1, width - 2)
+    for i in range(width):
+        if i == hole_position:
+            platform.append(' ')
+        else:
+            platform.append('#')
+    return platform
+
+# Function to print the platform
+def print_platform(platform):
+    print(''.join(platform))
+
+# Function to move the player
+def move_player(player_position, move):
+    return player_position + move
+
+# Main function to run the game
+def main():
+    width = 20  # Width of the platform
+    player_position = width // 2  # Starting position of the player
+    move_speed = 1  # Speed of player movement
+    while True:
+        platform = generate_platform(width)
+        print_platform(platform)
+        print("Use 'a' and 'd' to move left and right. 'q' to quit.")
+        print(f"Player position: {player_position}")
+        move = input("Enter your move: ")
+        if move == 'a':
+            player_position = move_player(player_position, -move_speed)
+        elif move == 'd':
+            player_position = move_player(player_position, move_speed)
+        elif move == 'q':
+            print("Thanks for playing!")
+            break
+        else:
+            print("Invalid move!")
+        if platform[player_position] == ' ':
+            print("Game over! You fell into the void.")
+            break
+        time.sleep(0.5)
+        print("\n" * 100)  # Clear the screen
+
+if __name__ == "__main__":
+    main()
